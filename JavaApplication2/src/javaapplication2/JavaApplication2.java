@@ -16,6 +16,6 @@ public class JavaApplication2 {
      */
     public static void main(String[] args) {
         System.out.print("Hallo");
-        System.out.print("Dit is een test om te checken of Git werkt");
+        System.out.print("Dit is een test om te checken of Git werkt")
     }    
 }
