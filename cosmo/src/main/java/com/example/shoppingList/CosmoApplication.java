@@ -10,5 +10,3 @@ public class CosmoApplication {
 		SpringApplication.run(CosmoApplication.class, args);
 	}
 }
-
-// test
