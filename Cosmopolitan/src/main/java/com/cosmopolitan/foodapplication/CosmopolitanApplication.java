@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CosmopolitanApplication {
 
 	// test
-	//test Gert 94
+	//test Gert 2016
 	// foefelen
 	public static void main(String[] args) {
 		SpringApplication.run(CosmopolitanApplication.class, args);
