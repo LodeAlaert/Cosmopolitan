@@ -6,7 +6,7 @@
 package com.cosmopolitan.DataEntities;
 
 /**
- *
+ * nog meer commentaar
  * @author Olivier
  */
 public class Recipe {
