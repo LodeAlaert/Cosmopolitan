@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CosmopolitanApplication {
 
-	// test
+	// git testen...
 	public static void main(String[] args) {
 		SpringApplication.run(CosmopolitanApplication.class, args);
 	}
