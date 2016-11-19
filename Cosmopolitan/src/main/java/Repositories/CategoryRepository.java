@@ -5,7 +5,8 @@ package Repositories;
 import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.*;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.*;
 
 @Repository
@@ -22,6 +23,8 @@ public class CategoryRepository {
 
 		String query = "SELECT * FROM category";
 		// Connection conn = null;
+		
+		List<String> lijstVanCategories = new ArrayList<String>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -38,6 +41,7 @@ public class CategoryRepository {
 						System.out.print(",  ");
 					String columnValue = rs.getString(i);
 					System.out.print(columnValue + " " + rsmd.getColumnName(i));
+					lijstVanCategories.add(columnValue);
 				}
 				System.out.println("");
 			}
@@ -46,6 +50,6 @@ public class CategoryRepository {
 			System.out.println(e.toString());
 		}
 
-		return "Hier zal een lijst van alle categoriën uit komen";
+		return lijstVanCategories.toString();
 	}
 }
