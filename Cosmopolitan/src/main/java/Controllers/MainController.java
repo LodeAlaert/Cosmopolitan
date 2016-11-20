@@ -1,22 +1,25 @@
 package Controllers;
 
+import java.util.List;
+import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import Models.Category;
-import Repositories.CategoryRepository;
+import Repositories.RecipeRepository;
 
 @RestController
 public class MainController {
 	
+	
 	@Autowired
-	CategoryRepository cr;
+	RecipeRepository rr;
 	
 	@RequestMapping("/")
-	public String Home(){
-		return "Hallo ik ben de server, ga naar '/categories' om de categorieën te bekijken";
+	public String GetAllRecipes(){
+		return rr.FetchAllRecipes();
 	}
 }
