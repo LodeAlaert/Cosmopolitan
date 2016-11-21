@@ -18,6 +18,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -33,13 +34,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>runtine</scope>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- MySQL database driver -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			
 		</dependency>
 
 		<!-- fixes datasource error-->
@@ -58,6 +60,11 @@
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>0.7.7.201606060606</version>
 			<type>maven-plugin</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+			<type>test-jar</type>
 		</dependency>
 	</dependencies>
 
