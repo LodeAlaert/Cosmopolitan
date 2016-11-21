@@ -45,6 +45,7 @@ public class RecipeRepository {
 		return JSONResult.toString();
 	}
 	
+	// fetch a recipe by it's selected ID
 	public String GetRecipeByID(int id){
 		String query = "SELECT * FROM recipe where Recipe_ID = " +id;
 		// Connection conn = null;

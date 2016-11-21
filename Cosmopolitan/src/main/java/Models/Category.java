@@ -20,11 +20,6 @@ public class Category {
 		this.name = name;
 	}
 	
-	// standard cons
-	public Category(){
-		
-	}
-	
 	// not standard constructor
 	public Category(int category_ID, String name){
 		this.category_ID = category_ID;

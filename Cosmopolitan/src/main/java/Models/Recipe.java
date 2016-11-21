@@ -77,10 +77,6 @@ public class Recipe {
 		this.time = time;
 	}
 
-	// standard constructor
-	public Recipe() {
-
-	}
 
 	// not-standard constructor
 	public Recipe(int recipe_id, String name, int difficulty, int persons, String description, String recipe,

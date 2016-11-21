@@ -26,12 +26,7 @@ public class Ingredient {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	
-	// Standard constructor
-	public Ingredient(){
 		
-	}
-	
 	// not standard constructor
 	public Ingredient(int ingredient_id, String name, String unit){
 		this.ingredient_ID = ingredient_id;
