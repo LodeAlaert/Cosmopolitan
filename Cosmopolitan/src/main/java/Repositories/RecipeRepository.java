@@ -45,8 +45,7 @@ public class RecipeRepository {
 		return JSONResult.toString();
 	}
 	
-	public String FetchRecipeByID(){
-		return "deze request geef een recept terug a.d.h.v. zijn ID";
+	public String GetRecipeByID(int id){
+		return "deze request geef een recept terug a.d.h.v. zijn ID => " +id;
 	}
-
 }
