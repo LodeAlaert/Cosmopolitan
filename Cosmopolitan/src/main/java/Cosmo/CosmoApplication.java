@@ -15,7 +15,6 @@ import test.CosmoApplicationTest;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({"Controllers","Repositories"})
-@SpringBootTest(classes = CosmoApplicationTest.class)
 public class CosmoApplication {
 	
 	public static void main(String[] args) {
