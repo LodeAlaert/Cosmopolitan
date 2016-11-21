@@ -40,7 +40,6 @@ public class CategoryRepository {
 
 			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 			JSONResult = rstjc.getFormattedResult(rs);
-			System.out.println(JSONResult);
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
