@@ -14,4 +14,9 @@ public class CosmoApplicationTest {
 	@Test
 	public void contextLoads() {
 	}
+	
+	@Test
+	public void nogEenTestMethode(){
+		
+	}
 }
