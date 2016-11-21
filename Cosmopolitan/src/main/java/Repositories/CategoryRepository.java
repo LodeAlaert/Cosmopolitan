@@ -21,6 +21,7 @@ public class CategoryRepository {
 	private DataSource dataSource;
 	private static java.sql.Connection conn;
 
+	// datasource for the DB settings
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}

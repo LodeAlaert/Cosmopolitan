@@ -17,6 +17,7 @@ public class CategoryController {
 	@Autowired
 	CategoryRepository cr;
 	
+	// catches the de /categories request
 	@RequestMapping("/categories")
 	public String GetAllCategories(){
 		return cr.GetAllCategories();

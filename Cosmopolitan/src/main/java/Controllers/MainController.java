@@ -14,10 +14,10 @@ import Repositories.RecipeRepository;
 @RestController
 public class MainController {
 	
-	
 	@Autowired
 	RecipeRepository rr;
 	
+	// this catches the / request 
 	@RequestMapping("/")
 	public String GetAllRecipes(){
 		return rr.FetchAllRecipes();

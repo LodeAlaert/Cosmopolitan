@@ -22,6 +22,7 @@ public class RecipeController {
 	@Autowired
 	RecipeRepository rr;
 	
+	// this catches the /recipe/{id} request
 	@RequestMapping(value = "/recipe/{id}", method= RequestMethod.GET)
 	public String GetRecipeByID(@PathVariable("id") int id){
 		return rr.GetRecipeByID(id);
