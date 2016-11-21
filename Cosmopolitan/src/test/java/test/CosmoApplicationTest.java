@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath*:spring/applicationContext.xml"})
+//@ContextConfiguration({"classpath*:spring/applicationContext.xml"})
 public class CosmoApplicationTest {
 
 	@Test
