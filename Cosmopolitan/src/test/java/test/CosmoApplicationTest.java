@@ -40,13 +40,13 @@ public class CosmoApplicationTest {
 		String test = cr.GetAllCategories();
 	}
 
-	// test if all the recipes can be fetched
+	//test if all the recipes can be fetched
 	@Test
 	public void TestFetchAllCategories() {
 		assertNotNull(rr.FetchAllRecipes());
 	}
 
-	// test the getters & setters of recipe
+	//test the getters & setters of recipe
 	@Test
 	public void TestGSRecipe() {
 		r1.setRecipe_id(2);
