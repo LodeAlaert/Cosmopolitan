@@ -34,7 +34,7 @@ public class RecipeRepository {
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
-
+			//to json
 			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 			JSONResult = rstjc.getFormattedResult(rs);
 			System.out.println(JSONResult);
