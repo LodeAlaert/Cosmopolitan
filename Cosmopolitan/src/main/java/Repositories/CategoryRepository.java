@@ -37,10 +37,11 @@ public class CategoryRepository {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
-					"Cosmo", "Cosmo123");
+					"Cosmo", "Cosmo123");//sslfalse anders warning 
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
+			
 			//to json
 			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 			JSONResult = rstjc.getFormattedResult(rs);
