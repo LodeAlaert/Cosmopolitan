@@ -34,6 +34,9 @@ public class MainController {
 	// accepteren.
 	@RequestMapping("/filter*")
 	public String FilterRecipes(HttpServletRequest request) {
+		
+		// check dees: https://gyazo.com/490afaa45db60caf014531e6877fdc75
+		// zo zal de query er uiteindelijk uit zien.
 
 		// hier wordt een deeltje van die link eruit gehaald, de link zal worden
 		// opgesplitst in categorie, moeilijkheid, prijs en bereidingstijd
