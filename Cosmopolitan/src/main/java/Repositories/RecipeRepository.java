@@ -23,8 +23,6 @@ public class RecipeRepository {
 	public String FetchAllRecipes() {
 
 		String query = "SELECT recipe_id, name, description FROM recipe";
-		// Connection conn = null;
-
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
 		try {
