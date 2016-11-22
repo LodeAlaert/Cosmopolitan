@@ -22,4 +22,10 @@ public class MainController {
 	public String GetAllRecipes(){
 		return rr.FetchAllRecipes();
 	}
+	
+	// this catches the / request 
+	@RequestMapping("/filter*")
+	public String FilterRecipes(){
+		return "this is the link for the filter, this should call a method in the RecipeController";
+	}
 }
