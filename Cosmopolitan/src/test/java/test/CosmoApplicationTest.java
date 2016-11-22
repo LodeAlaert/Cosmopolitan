@@ -27,6 +27,7 @@ public class CosmoApplicationTest {
 	RecipeRepository rr = new RecipeRepository();
 	CategoryRepository cr = new CategoryRepository();	
 
+	//test 
 	public CosmoApplicationTest() {
 		this.c1 = new Category(1, "Vlees");
 		this.c2 = new Category(2, "Vis");
