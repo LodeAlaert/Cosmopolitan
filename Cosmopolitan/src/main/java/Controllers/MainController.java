@@ -49,8 +49,8 @@ public class MainController {
 		String queryString = request.getQueryString();
 
 		// deze worden delen van de Query
-		String c = ""; // bv "category=1 AND category=2"
-		String d = "";
+		String c = ""; 
+		String d = ""; 
 		String p = "";
 		String t = "";
 
@@ -61,12 +61,14 @@ public class MainController {
 		if (cat.length > 1) {
 
 			// c aanvullen
+			// bv "category=1 OR category=2"
 		}
 
 		// checken of er een difficulty voorkomt in de link
 		String[] diff = queryString.split("difficulty=");
 		if (diff.length > 1) {
 			// d aanvullen
+			// bv "AND difficulty=1
 		}
 
 		// checken of er een prijs voorkomt in de link
@@ -84,9 +86,11 @@ public class MainController {
 		// dit zal een stuk van de Query maken bv SELECT * FROM recpies WHERE
 		// category=1 AND
 		// category=2 AND difficulty=1 AND price='>30" ...
-		String fromLink = String.format(c + " " + d + " " + p + " " + t);
+		String query = String.format(c + " " + d + " " + p + " " + t);
 		
 		// nu query doorgeven aan de repository
+		RecipeRepository rr = new RecipeRepository();
+		//rr.filter(query);
 		
 		// resultset in JSONformaat terug geven
 		return "ik ben de filter";

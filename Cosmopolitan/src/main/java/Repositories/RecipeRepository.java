@@ -13,10 +13,10 @@ import Repositories.ResultSetToJSONConverter;
 
 @Repository
 public class RecipeRepository {
-	
-	private static java.sql.Connection conn;
-	List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
+	private static java.sql.Connection conn;
+	
+	List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
 	// Fetch all the info needed for the homepage of the application
 	// id, name & description
@@ -32,7 +32,7 @@ public class RecipeRepository {
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
-			//to json
+			// to json
 			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 			JSONResult = rstjc.getFormattedResult(rs);
 			System.out.println(JSONResult);
@@ -42,12 +42,33 @@ public class RecipeRepository {
 		}
 		return JSONResult.toString();
 	}
-	
+
 	// fetch a recipe by it's selected ID
-	public String GetRecipeByID(int id){
-		String query = "SELECT * FROM recipe where Recipe_ID = " +id;
+	public String GetRecipeByID(int id) {
+		String query = "SELECT * FROM recipe where Recipe_ID = " + id;
 		// Connection conn = null;
 
+		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
+					"Cosmo", "Cosmo123");
+			
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
+			JSONResult = rstjc.getFormattedResult(rs);
+			System.out.println(JSONResult);
+
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return JSONResult.toString();
+	}
+
+	public String Filter(String query) {
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
 		try {
