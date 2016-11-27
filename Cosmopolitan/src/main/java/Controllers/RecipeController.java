@@ -30,29 +30,25 @@ public class RecipeController {
 	}
 
 	// deze methode zal worden opgeroepen wanneer er op de website op de knop
-	// "filter" wordt geklikt
-	// het "*" zal dus gelijk welke objecten die worden meegegeven in de link
-	// accepteren.
+	// "filter" wordt geklikt het "*" zal dus gelijk welke objecten die worden 
+	// meegegeven in de link accepteren.
 	@RequestMapping("/filter*")
 	public String FilterRecipes(HttpServletRequest request) {
 
-		// check dees: https://gyazo.com/490afaa45db60caf014531e6877fdc75
-		// zo zal de query er uiteindelijk uit zien.
-
-		// hier wordt een deeltje van die link eruit gehaald, de link zal worden
-		// opgesplitst in categorie, moeilijkheid, prijs en bereidingstijd
-		// als deze voorkomen in de link zullen deze waarden gebruikt worden
-		// om (in de repository) een query samen te stellen om de gewenste
-		// recepten
-		// op te halen uit de DB
-
-		// dit is de volledige link waar alles uit gehaald kan worden:
+		// dit is de volledige link waar alles uit gehaald kan worden: na "filter?"
 		String queryString = request.getQueryString();
 
 		// deze worden delen van de Query
+		// eerste deel
 		String c = "Category_Category_ID=";
+		
+		// tweede deel
 		String d = "";
+		
+		// derde deel
 		String p = "";
+		
+		// vierde deel
 		String t = "";
 
 		// link splitten aan de "&"
@@ -71,7 +67,8 @@ public class RecipeController {
 		 */
 		String[] dif = splittedLink[1].split("=");
 		if (dif.length >= 2) {
-
+			
+			// checken of de category 0 is in de link (niet gekozen in de filter)
 			if (c.equals("Category_Category_ID=0")) {
 
 				// geen category gekozen
@@ -89,6 +86,7 @@ public class RecipeController {
 		String[] pri = splittedLink[2].split("=");
 		if (pri.length >= 2) {
 
+			// checken of de difficulty 0 is in de link (niet gekozen in de filter)
 			if (d.equals(" Difficulty=0") || d.equals(" AND Difficulty=0")) {
 
 				// geen difficulty gekozen
@@ -106,6 +104,7 @@ public class RecipeController {
 		String[] tim = splittedLink[3].split("=");
 		if (tim.length >= 2) {
 
+			// checken of de prijs 0 is in de link (niet gekozen in de filter)
 			if (p.equals(" Price=0") || p.equals(" AND Price=0")) {
 
 				// geen prijs gekozen
@@ -123,20 +122,11 @@ public class RecipeController {
 		}
 
 		// querie maken
-		String query = "";
-
-		// zonder join
-		if (c.equals("Category_Category_ID=0")) {
-			query = "SELECT * FROM recipe WHERE " + c + d + p + t + ";";
-		} else {
-			// met join
-			query = "SELECT * FROM recipe "
+		String query = "SELECT * FROM recipe "
 					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
 					+ c + d + p + t + ";";
-		}
 		
 		System.out.println(query);
-
 
 		// nu query doorgeven aan de repository
 		RecipeRepository rr = new RecipeRepository();
@@ -144,5 +134,4 @@ public class RecipeController {
 		// resultset in JSONformaat terug geven
 		return rr.Filter(query);
 	}
-
 }
