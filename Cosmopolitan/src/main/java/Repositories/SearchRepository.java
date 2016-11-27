@@ -14,7 +14,7 @@ import java.*;
 import org.json.JSONObject;
 
 @Repository
-public class CategoryRepository {
+public class SearchRepository {
 
 	// variables
 	private DataSource dataSource;
@@ -26,7 +26,9 @@ public class CategoryRepository {
 	}
 
 	String sertch = "";
-	String[] words = zoekzin.split(" ");
+	
+	// gives error
+	// String[] words = zoekzin.split(" ");
 
 	// fetch all the categories from the database
 	public String GetAllCategories() {

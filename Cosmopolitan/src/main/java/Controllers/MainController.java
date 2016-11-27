@@ -61,14 +61,14 @@ public class MainController {
 		if (cat.length > 1) {
 
 			// c aanvullen
-			// bv "category=1 OR category=2"
+			// bv "category=1 OR category=2 "
 		}
 
 		// checken of er een difficulty voorkomt in de link
 		String[] diff = queryString.split("difficulty=");
 		if (diff.length > 1) {
 			// d aanvullen
-			// bv "AND difficulty=1
+			// bv "AND difficulty=1 "
 		}
 
 		// checken of er een prijs voorkomt in de link
