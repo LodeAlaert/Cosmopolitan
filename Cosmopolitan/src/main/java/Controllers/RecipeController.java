@@ -19,23 +19,23 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class RecipeController {
-	
+
 	@Autowired
 	RecipeRepository rr;
-	
+
 	// this catches the /recipe/{id} request
-	@RequestMapping(value = "/recipe/{id}", method= RequestMethod.GET)
-	public String GetRecipeByID(@PathVariable("id") int id){
+	@RequestMapping(value = "/recipe/{id}", method = RequestMethod.GET)
+	public String GetRecipeByID(@PathVariable("id") int id) {
 		return rr.GetRecipeByID(id);
 	}
-        
-        // deze methode zal worden opgeroepen wanneer er op de website op de knop
+
+	// deze methode zal worden opgeroepen wanneer er op de website op de knop
 	// "filter" wordt geklikt
 	// het "*" zal dus gelijk welke objecten die worden meegegeven in de link
 	// accepteren.
 	@RequestMapping("/filter*")
 	public String FilterRecipes(HttpServletRequest request) {
-		
+
 		// check dees: https://gyazo.com/490afaa45db60caf014531e6877fdc75
 		// zo zal de query er uiteindelijk uit zien.
 
@@ -50,63 +50,83 @@ public class RecipeController {
 		String queryString = request.getQueryString();
 
 		// deze worden delen van de Query
-		String c = ""; 
-		String d = ""; 
+		String c = "Category_ID=";
+		String d = "";
 		String p = "";
 		String t = "";
 
-		System.out.println(queryString);
 
-		// checken er categorieën voorkomen in de link
-		String[] cat = queryString.split("category=");
-                if (cat.length > 0 && cat.length < 2) {
-               
-			// c aanvullen
-			c += "category = " + cat[1];
+		// link splitten aan de "&"
+		String[] splittedLink = queryString.split("&");
+
+		/*
+		 * CATEGORY_ID UIT DE LINK HALEN
+		 */
+		String[] cat = splittedLink[0].split("=");
+		if (cat.length >= 2) {
+			c += cat[1].replaceAll(",", " OR ");
 		}
-		else
-		{
-                        c = "category = ";
-			// meerdere categoriën gekozen
-			for(int i = 0; i <= cat.length ; i++){
-                               c += cat[i]; 
-                               
-                               
+
+		/*
+		 * DIFFICULTY UIT DE LINK HALEN
+		 */
+		String[] dif = splittedLink[1].split("=");
+		if (dif.length >= 2) {
+
+			if (c.equals("Category_ID=0")) {
+
+				// geen category gekozen
+				c = "";
+				d += " Difficulty=";
+			} else {
+				d += " AND Difficulty=";
 			}
+			d += dif[1].replaceAll(",", " OR ");
 		}
 
-		// checken of er een difficulty voorkomt in de link
-		String[] diff = queryString.split("difficulty=");
-		if (diff.length > 1) {
-			// d aanvullen
-			// bv "AND difficulty=1 "
+		/*
+		 * PRICE UIT DE LINK HALEN
+		 */
+		String[] pri = splittedLink[2].split("=");
+		if (pri.length >= 2) {
+
+			if (d.equals("Difficulty=0")) {
+
+				// geen difficulty gekozen
+				d = "";
+				p += " Price=";
+			} else {
+				p += " AND Price=";
+			}
+			p += pri[1].replaceAll(",", " OR ");
 		}
 
-		// checken of er een prijs voorkomt in de link
-		String[] price = queryString.split("price=");
-		if (price.length > 1) {
-			// p aanvullen
+		/*
+		 * TIME UIT DE LINK HALEN
+		 */
+		String[] tim = splittedLink[3].split("=");
+		if (tim.length >= 2) {
+
+			if (p.equals("Price=0")) {
+
+				// geen prijs gekozen
+				p = "";
+				t += " Price <";
+			} else {
+				t += " AND Price <";
+			}
+			t += tim[1].replaceAll(",", " OR ");
 		}
 
-		// checken of er een tijd voorkomt in de link
-		String[] time = queryString.split("time=");
-		if (time.length > 1) {
-			// t aanvullen
-		}
+		// querie maken
+		String query = "SELECT * FROM recipe WHERE "+ c + d + p + t + ";";
+		System.out.println(query);
 
-		// dit zal een stuk van de Query maken bv SELECT * FROM recpies WHERE
-		// category=1 AND
-		// category=2 AND difficulty=1 AND price='>30" ...
-		String query = String.format(c + " " + d + " " + p + " " + t);
-		
 		// nu query doorgeven aan de repository
 		RecipeRepository rr = new RecipeRepository();
-		//rr.filter(query);
 		
 		// resultset in JSONformaat terug geven
-		return "dit zal de query zijn die nog moet worden doorgegeven aan de repository: \n"
-				+ "SELECT * FROM recipes WHERE " + query;
+		return rr.Filter(query);
 	}
-        
-        
+
 }
