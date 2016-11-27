@@ -109,15 +109,15 @@ public class RecipeController {
 
 				// geen prijs gekozen
 				p = "";
-				t += " time <";
+				t += " time=";
 			} else {
-				t += " AND time <";
+				t += " AND time=";
 			}
 			t += tim[1].replaceAll(",", " OR ");
 		}
 
 		// geen time gekozen
-		if (t.equals(" time <0") || t.equals(" AND time <0")) {
+		if (t.equals(" time=0") || t.equals(" AND time=0")) {
 			t = "";
 		}
 
