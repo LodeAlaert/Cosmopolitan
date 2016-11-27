@@ -50,11 +50,10 @@ public class RecipeController {
 		String queryString = request.getQueryString();
 
 		// deze worden delen van de Query
-		String c = "Category_ID=";
+		String c = "Category_Category_ID=";
 		String d = "";
 		String p = "";
 		String t = "";
-
 
 		// link splitten aan de "&"
 		String[] splittedLink = queryString.split("&");
@@ -73,7 +72,7 @@ public class RecipeController {
 		String[] dif = splittedLink[1].split("=");
 		if (dif.length >= 2) {
 
-			if (c.equals("Category_ID=0")) {
+			if (c.equals("Category_Category_ID=0")) {
 
 				// geen category gekozen
 				c = "";
@@ -90,7 +89,7 @@ public class RecipeController {
 		String[] pri = splittedLink[2].split("=");
 		if (pri.length >= 2) {
 
-			if (d.equals("Difficulty=0")) {
+			if (d.equals(" Difficulty=0") || d.equals(" AND Difficulty=0")) {
 
 				// geen difficulty gekozen
 				d = "";
@@ -107,24 +106,41 @@ public class RecipeController {
 		String[] tim = splittedLink[3].split("=");
 		if (tim.length >= 2) {
 
-			if (p.equals("Price=0")) {
+			if (p.equals(" Price=0") || p.equals(" AND Price=0")) {
 
 				// geen prijs gekozen
 				p = "";
-				t += " Price <";
+				t += " time <";
 			} else {
-				t += " AND Price <";
+				t += " AND time <";
 			}
 			t += tim[1].replaceAll(",", " OR ");
 		}
 
+		// geen time gekozen
+		if (t.equals(" time <0") || t.equals(" AND time <0")) {
+			t = "";
+		}
+
 		// querie maken
-		String query = "SELECT * FROM recipe WHERE "+ c + d + p + t + ";";
+		String query = "";
+
+		// zonder join
+		if (c.equals("Category_Category_ID=0")) {
+			query = "SELECT * FROM recipe WHERE " + c + d + p + t + ";";
+		} else {
+			// met join
+			query = "SELECT * FROM recipe "
+					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
+					+ c + d + p + t + ";";
+		}
+		
 		System.out.println(query);
+
 
 		// nu query doorgeven aan de repository
 		RecipeRepository rr = new RecipeRepository();
-		
+
 		// resultset in JSONformaat terug geven
 		return rr.Filter(query);
 	}
