@@ -58,10 +58,16 @@ public class MainController {
 
 		// checken er categorieën voorkomen in de link
 		String[] cat = queryString.split("category=");
-		if (cat.length > 1) {
+		if (cat.length > 1 && cat.length < 3) {
 
 			// c aanvullen
-			// bv "category=1 OR category=2 "
+			c += "category = " + cat[1].toString();
+		}
+		else
+		{
+			// meerdere categoriën gekozen
+			for(int i = 0; i <= cat.length ; i++){
+			}
 		}
 
 		// checken of er een difficulty voorkomt in de link
@@ -93,6 +99,7 @@ public class MainController {
 		//rr.filter(query);
 		
 		// resultset in JSONformaat terug geven
-		return "ik ben de filter";
+		return "dit zal de query zijn die nog moet worden doorgegeven aan de repository: \n"
+				+ "SELECT * FROM recipes WHERE " + query;
 	}
 }
