@@ -59,7 +59,7 @@ public class RecipeController {
 		 */
 		String[] cat = splittedLink[0].split("=");
 		if (cat.length >= 2) {
-			c += cat[1].replaceAll(",", " OR ");
+			c += cat[1].replaceAll(",", " OR Category_Category_ID=");
 		}
 
 		/*
@@ -77,7 +77,7 @@ public class RecipeController {
 			} else {
 				d += " AND Difficulty=";
 			}
-			d += dif[1].replaceAll(",", " OR ");
+			d += dif[1].replaceAll(",", " OR Difficulty=");
 		}
 
 		/*
@@ -95,7 +95,7 @@ public class RecipeController {
 			} else {
 				p += " AND Price=";
 			}
-			p += pri[1].replaceAll(",", " OR ");
+			p += pri[1].replaceAll(",", " OR Price=");
 		}
 
 		/*
@@ -113,7 +113,7 @@ public class RecipeController {
 			} else {
 				t += " AND time=";
 			}
-			t += tim[1].replaceAll(",", " OR ");
+			t += tim[1].replaceAll(",", " OR Time");
 		}
 
 		// geen time gekozen
