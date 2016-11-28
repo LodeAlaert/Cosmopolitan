@@ -126,7 +126,7 @@ public class RecipeController {
 					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
 					+ c + d + p + t + ";";
 		
-		System.out.println(query);
+		System.out.println("query: "+query);
 
 		// nu query doorgeven aan de repository
 		RecipeRepository rr = new RecipeRepository();
