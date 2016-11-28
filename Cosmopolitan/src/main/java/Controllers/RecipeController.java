@@ -122,7 +122,7 @@ public class RecipeController {
 		}
 
 		// querie maken
-		String query = "SELECT * FROM recipe "
+		String query = "SELECT DISTINCT recipe_id, name, description FROM recipe "
 					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
 					+ c + d + p + t + ";";
 		
