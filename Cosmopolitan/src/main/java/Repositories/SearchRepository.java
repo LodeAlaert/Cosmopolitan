@@ -10,65 +10,68 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.json.JSONObject;
 
 @Repository
 public class SearchRepository {
 
-	// variables
-	private DataSource dataSource;
-	private static java.sql.Connection conn;
+    // variables
+    private DataSource dataSource;
+    private static java.sql.Connection conn;
 
-	// datasource for the DB settings
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+    // datasource for the DB settings
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
-	String sertch = "";
-	
-	// gives error
-	// String[] words = zoekzin.split(" ");
+    String sertch = "";
 
-	// fetch all the categories from the database
-	public String GetAllCategories() {
+    // gives error
+    String[] words = sertch.split(" ");
+    Set<Integer> recipeidlist = new TreeSet<>();
 
-		String query = "SELECT * FROM category";
-		// Connection conn = null;
+    // fetch all the categories from the database
+    public String GetAllCategories() {
 
-		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
+        String query = " SELECT * FROM cosmo.ingredient inner join recipe_has_ingredient on Ingredient_ID = recipe_has_ingredient.Ingedient_Ingredient_ID ";
+        // Connection conn = null;
 
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
-					"Cosmo", "Cosmo123");//sslfalse anders warning 
-			
-			PreparedStatement ps = conn.prepareStatement(query);
-			
-			
-			// rs should contain anything valid from the db 
-			ResultSet rs = ps.executeQuery();
+        List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
-			
-			//			ResultSet rb;
-//			for ( string serchword : words  ){
-//				for (String item : rs) {
-//					if ( item.contains(serchword)){
-//						ResultSet rb.add(item)
-//					}
-//				} 				
-//			}
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
+                    "Cosmo", "Cosmo123");//sslfalse anders warning 
 
-			
-			//to json
-			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
-			JSONResult = rstjc.getFormattedResult(rs);
+            PreparedStatement ps = conn.prepareStatement(query);
 
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return JSONResult.toString();
-	}
+            // rs should contain anything valid from the db 
+            ResultSet rs = ps.executeQuery();
+
+            ResultSet rb;
+
+            //to json
+            ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
+            JSONResult = rstjc.getFormattedResult(rs);
+
+            for (String serchword : words) {
+                while (rs.next()) {
+                    rs.getString(1);
+
+                    if (rs.getString(1).contains(serchword)) {
+                        recipeidlist.add((Integer) Integer.parseInt(rs.getString(0)));
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return JSONResult.toString();
+    }
 }
 // SELECT * FROM cosmo.ingredient inner join recipe_has_ingredient on
 // Ingredient_ID = recipe_has_ingredient.Ingedient_Ingredient_ID inner join
