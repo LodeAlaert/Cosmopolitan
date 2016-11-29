@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.awt.PageAttributes.MediaType;
+import java.awt.image.RescaleOp;
 import java.util.List;
 import org.json.JSONObject;
 
@@ -17,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import Repositories.RecipeRepository;
 import javax.servlet.http.HttpServletRequest;
 
+import Controllers.MainController;
+
 @RestController
 public class RecipeController {
 
@@ -30,24 +33,25 @@ public class RecipeController {
 	}
 
 	// deze methode zal worden opgeroepen wanneer er op de website op de knop
-	// "filter" wordt geklikt het "*" zal dus gelijk welke objecten die worden 
+	// "filter" wordt geklikt het "*" zal dus gelijk welke objecten die worden
 	// meegegeven in de link accepteren.
 	@RequestMapping("/filter*")
 	public String FilterRecipes(HttpServletRequest request) {
 
-		// dit is de volledige link waar alles uit gehaald kan worden: na "filter?"
+		// dit is de volledige link waar alles uit gehaald kan worden: na
+		// "filter?"
 		String queryString = request.getQueryString();
 
 		// deze worden delen van de Query
 		// eerste deel
 		String c = "Category_Category_ID=";
-		
+
 		// tweede deel
 		String d = "";
-		
+
 		// derde deel
 		String p = "";
-		
+
 		// vierde deel
 		String t = "";
 
@@ -67,8 +71,9 @@ public class RecipeController {
 		 */
 		String[] dif = splittedLink[1].split("=");
 		if (dif.length >= 2) {
-			
-			// checken of de category 0 is in de link (niet gekozen in de filter)
+
+			// checken of de category 0 is in de link (niet gekozen in de
+			// filter)
 			if (c.equals("Category_Category_ID=0")) {
 
 				// geen category gekozen
@@ -86,7 +91,8 @@ public class RecipeController {
 		String[] pri = splittedLink[2].split("=");
 		if (pri.length >= 2) {
 
-			// checken of de difficulty 0 is in de link (niet gekozen in de filter)
+			// checken of de difficulty 0 is in de link (niet gekozen in de
+			// filter)
 			if (d.equals(" Difficulty=0") || d.equals(" AND Difficulty=0")) {
 
 				// geen difficulty gekozen
@@ -121,17 +127,19 @@ public class RecipeController {
 			t = "";
 		}
 
-		// querie maken
-		String query = "SELECT DISTINCT recipe_id, name, description FROM recipe "
+		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
+
+			return rr.FetchAllRecipes();
+			
+		} else {
+
+			// querie maken
+			String query = "SELECT DISTINCT recipe_id, name, description FROM recipe "
 					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
 					+ c + d + p + t + ";";
-		
-		System.out.println("query: "+query);
 
-		// nu query doorgeven aan de repository
-		RecipeRepository rr = new RecipeRepository();
-
-		// resultset in JSONformaat terug geven
-		return rr.Filter(query);
+			// resultset in JSONformaat terug geven
+			return rr.Filter(query);
+		}
 	}
 }
