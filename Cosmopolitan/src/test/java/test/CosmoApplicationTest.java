@@ -97,8 +97,8 @@ public class CosmoApplicationTest {
             MockHttpServletRequest r = new MockHttpServletRequest();
             r.addParameter("fakeRequest", "http://10.129.32.103:8080/filter?category=3&difficulty=1&price=1&time=1");
             
+            assertEquals("SELECT DISTINCT recipe_id, name, description FROM recipe JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID WHERE Category_Category_ID=1 AND Difficulty=1 AND PRICE=1 AND TIME=1",rc.FilterRecipes(r));
             
-            rc.FilterRecipes(r);
            
         }
 }
