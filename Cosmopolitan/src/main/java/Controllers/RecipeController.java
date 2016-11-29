@@ -41,6 +41,7 @@ public class RecipeController {
 		// dit is de volledige link waar alles uit gehaald kan worden: na
 		// "filter?"
 		String queryString = request.getQueryString();
+		
 
 		// deze worden delen van de Query
 		// eerste deel

@@ -69,6 +69,8 @@ public class RecipeRepository {
 	}
 
 	public String Filter(String query) {
+		
+		System.out.println(query);
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
 		try {

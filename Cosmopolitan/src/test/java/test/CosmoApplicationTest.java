@@ -29,7 +29,7 @@ public class CosmoApplicationTest {
 
 	RecipeRepository rr = new RecipeRepository();
 	CategoryRepository cr = new CategoryRepository();
-        RecipeController rc = new RecipeController();
+	RecipeController rc = new RecipeController();
 
 	public CosmoApplicationTest() {
 		this.c1 = new Category(1, "Vlees");
@@ -44,13 +44,13 @@ public class CosmoApplicationTest {
 		String test = cr.GetAllCategories();
 	}
 
-	//test if all the recipes can be fetched
+	// test if all the recipes can be fetched
 	@Test
 	public void TestFetchAllCategories() {
 		assertNotNull(rr.FetchAllRecipes());
 	}
 
-	//test the getters & setters of recipe
+	// test the getters & setters of recipe
 	@Test
 	public void TestGSRecipe() {
 		r1.setRecipe_id(2);
@@ -91,16 +91,22 @@ public class CosmoApplicationTest {
 		assertEquals("look", i1.getName());
 		assertEquals("teentjes", i1.getUnit());
 	}
-        
-        @Test
-        public void TestFilterRecipes() {
-            MockHttpServletRequest r = new MockHttpServletRequest();
-            r.addParameter("fakeRequest", "http://10.129.32.103:8080/filter?category=3&difficulty=1&price=1&time=1");
-            
-            assertEquals("SELECT DISTINCT recipe_id, name, description FROM recipe JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID WHERE Category_Category_ID=1 AND Difficulty=1 AND PRICE=1 AND TIME=1",rc.FilterRecipes(r));
-            
-           
-        }
+
+	@Test
+	public void TestFilterRecipes() {
+		MockHttpServletRequest r = new MockHttpServletRequest();
+		r.setServerName("http://10.129.32.103:8080");
+		r.setRequestURI("/filter?");
+		r.setQueryString("category=1&difficulty=1&price=1&time=1");
+		
+		System.out.println(r.getQueryString());
+		
+		rc.FilterRecipes(r);
+		
+		
+
+		assertEquals(
+				"SELECT DISTINCT recipe_id, name, description FROM recipe JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID WHERE Category_Category_ID=1 AND Difficulty=1 AND PRICE=1 AND TIME=1;",
+				rc.FilterRecipes(r));
+	}
 }
-
-
