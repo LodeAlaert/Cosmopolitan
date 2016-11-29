@@ -21,6 +21,8 @@ public class RecipeRepository {
 	// Fetch all the info needed for the homepage of the application
 	// id, name & description
 	public String FetchAllRecipes() {
+		
+		System.out.println("allRecipes aangeroepen");
 
 		String query = "SELECT recipe_id, name, description FROM recipe";
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();

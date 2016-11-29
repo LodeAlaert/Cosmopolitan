@@ -26,7 +26,5 @@ public class MainController {
 	@RequestMapping("/")
 	public String GetAllRecipes() {
 		return rr.FetchAllRecipes();
-	}
-
-	
+	}	
 }

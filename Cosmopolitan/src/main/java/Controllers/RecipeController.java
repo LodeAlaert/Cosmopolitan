@@ -18,8 +18,6 @@ import org.springframework.http.HttpStatus;
 import Repositories.RecipeRepository;
 import javax.servlet.http.HttpServletRequest;
 
-import Controllers.MainController;
-
 @RestController
 public class RecipeController {
 
@@ -36,22 +34,21 @@ public class RecipeController {
 	// deze methode zal worden opgeroepen wanneer er op de website op de knop
 	// "filter" wordt geklikt het "*" zal dus gelijk welke objecten die worden
 	// meegegeven in de link accepteren.
-	
-	
+
 	@RequestMapping("/filter*")
-	public void FilterRecipes(HttpServletRequest request) {
+	public String FilterRecipes(HttpServletRequest request) {
 		String queryString = request.getQueryString();
-		Filter(queryString);
+		return Filter(queryString);
 	}
-	
+
 	public String Filter(String queryString) {
-		
-		System.out.println("querystring= "+queryString);
+
+		System.out.println("querystring= " + queryString);
 
 		// deze worden delen van de Query
 		// eerste deel
 		String c = "Category_Category_ID=";
-		
+
 		// tweede deel
 		String d = "";
 
@@ -132,13 +129,13 @@ public class RecipeController {
 		if (t.equals(" time=0") || t.equals(" AND time=0")) {
 			t = "";
 		}
-
+		
 		// als niets gekozen is in de query
 		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
 
-			System.out.println("kaka");
+			System.out.println("voor de return");
 			return rr.FetchAllRecipes();
-
+			
 		} else {
 
 			// querie maken
