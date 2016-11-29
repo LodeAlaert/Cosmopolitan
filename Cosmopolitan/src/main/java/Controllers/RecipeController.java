@@ -25,6 +25,7 @@ public class RecipeController {
 
 	@Autowired
 	RecipeRepository rr;
+	public String query = "";
 
 	// this catches the /recipe/{id} request
 	@RequestMapping(value = "/recipe/{id}", method = RequestMethod.GET)
@@ -35,18 +36,22 @@ public class RecipeController {
 	// deze methode zal worden opgeroepen wanneer er op de website op de knop
 	// "filter" wordt geklikt het "*" zal dus gelijk welke objecten die worden
 	// meegegeven in de link accepteren.
+	
+	
 	@RequestMapping("/filter*")
-	public String FilterRecipes(HttpServletRequest request) {
-
-		// dit is de volledige link waar alles uit gehaald kan worden: na
-		// "filter?"
+	public void FilterRecipes(HttpServletRequest request) {
 		String queryString = request.getQueryString();
+		Filter(queryString);
+	}
+	
+	public String Filter(String queryString) {
 		
+		System.out.println("querystring= "+queryString);
 
 		// deze worden delen van de Query
 		// eerste deel
 		String c = "Category_Category_ID=";
-
+		
 		// tweede deel
 		String d = "";
 
@@ -131,12 +136,13 @@ public class RecipeController {
 		// als niets gekozen is in de query
 		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
 
+			System.out.println("kaka");
 			return rr.FetchAllRecipes();
-			
+
 		} else {
 
 			// querie maken
-			String query = "SELECT DISTINCT recipe_id, name, description FROM recipe "
+			query = "SELECT DISTINCT recipe_id, name, description FROM recipe "
 					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
 					+ c + d + p + t + ";";
 

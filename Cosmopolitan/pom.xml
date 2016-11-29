@@ -61,6 +61,11 @@
 			<version>0.7.7.201606060606</version>
 			<type>maven-plugin</type>
 		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.4</version>
+		</dependency>
 	</dependencies>
 
 
