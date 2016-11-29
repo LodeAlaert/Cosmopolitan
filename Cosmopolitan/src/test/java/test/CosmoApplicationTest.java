@@ -18,6 +18,7 @@ import Models.Recipe;
 import Repositories.CategoryRepository;
 import Repositories.RecipeRepository;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CosmoApplicationTest {
@@ -93,7 +94,10 @@ public class CosmoApplicationTest {
         
         @Test
         public void TestFilterRecipes() {
-            HttpServletRequest r;
+            MockHttpServletRequest r = new MockHttpServletRequest();
+            r.addParameter("fakeRequest", "http://10.129.32.103:8080/filter?category=3&difficulty=1&price=1&time=1");
+            
+            
             rc.FilterRecipes(r);
            
         }
