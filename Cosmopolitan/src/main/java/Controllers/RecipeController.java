@@ -127,7 +127,7 @@ public class RecipeController {
 			t = "";
 		}
 
-		// als niets gekozen is in de query...
+		// als niets gekozen is in de query
 		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
 
 			return rr.FetchAllRecipes();
