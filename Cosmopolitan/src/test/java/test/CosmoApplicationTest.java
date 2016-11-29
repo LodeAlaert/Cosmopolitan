@@ -1,5 +1,6 @@
 package test;
 
+import Controllers.RecipeController;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -16,6 +17,7 @@ import Models.Ingredient;
 import Models.Recipe;
 import Repositories.CategoryRepository;
 import Repositories.RecipeRepository;
+import javax.servlet.http.HttpServletRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CosmoApplicationTest {
@@ -26,6 +28,7 @@ public class CosmoApplicationTest {
 
 	RecipeRepository rr = new RecipeRepository();
 	CategoryRepository cr = new CategoryRepository();
+        RecipeController rc = new RecipeController();
 
 	public CosmoApplicationTest() {
 		this.c1 = new Category(1, "Vlees");
@@ -87,6 +90,13 @@ public class CosmoApplicationTest {
 		assertEquals("look", i1.getName());
 		assertEquals("teentjes", i1.getUnit());
 	}
+        
+        @Test
+        public void TestFilterRecipes() {
+            HttpServletRequest r;
+            rc.FilterRecipes(r);
+           
+        }
 }
 
 
