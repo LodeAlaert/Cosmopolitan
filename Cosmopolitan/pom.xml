@@ -62,9 +62,8 @@
 			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.4</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-artemis</artifactId>
 		</dependency>
 	</dependencies>
 

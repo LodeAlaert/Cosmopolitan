@@ -24,6 +24,7 @@ import org.json.JSONObject;
  *
  * @author Olivier
  */
+@Repository
 public class IngredientsRepository {
     // variables
     private DataSource dataSource;
@@ -36,9 +37,10 @@ public class IngredientsRepository {
     
     
     public String GetIngredientsByRecipeID(int id) {
-        
-        
-        String query = "SELECT * FROM cosmo.ingredient INNER JOIN recipe_has_ingredient on recipe_has_ingredient.Ingedient_Ingredient_ID=Ingredient_ID WHERE Recipe_ID = " + id;
+    	        
+    	String query = "SELECT * FROM ingredient "
+    			+ "INNER JOIN recipe_has_ingredient on recipe_has_ingredient.Ingedient_Ingredient_ID = Ingredient_ID "
+    			+ "WHERE recipe_has_ingredient.Recipe_Recipe_ID = 1 = " + id;
 		// Connection conn = null;
 
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
@@ -58,9 +60,8 @@ public class IngredientsRepository {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		
 		return JSONResult.toString();
-    
-    
     }
     
     

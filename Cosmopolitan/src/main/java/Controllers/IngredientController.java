@@ -27,15 +27,20 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Olivier
  */
+@RestController
 public class IngredientController {
     
     @Autowired
 	IngredientsRepository ir;
 	public String query = "";
         
-        // this catches the /recipe/{id} request
+    // this catches the /recipe/{id} request
 	@RequestMapping(value = "/ingredients/{id}", method = RequestMethod.GET)
 	public String GetIngredientsByRecipeID(@PathVariable("id") int id) {
+		
+        System.out.println("test");
+
+        
 		return ir.GetIngredientsByRecipeID(id);
 	}
 
