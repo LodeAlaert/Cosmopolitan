@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import Repositories.RecipeRepository;
-import Repositories.SearchRepository;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -24,7 +23,6 @@ public class RecipeController {
 
 	@Autowired
 	RecipeRepository rr;
-        SearchRepository sr;
         
 	public String query = "";
 
@@ -33,9 +31,11 @@ public class RecipeController {
 	public String GetRecipeByID(@PathVariable("id") int id) {
 		return rr.GetRecipeByID(id);
 	}
-        @RequestMapping(value = "/search/{searchvalue}", method = RequestMethod.GET)
-	public String GetRecipeByID(@PathVariable("searchvalue") String   searchvalue) {
-		return sr.GetMatchingrecepies(searchvalue);
+	
+    @RequestMapping(value = "/search/{searchvalue}", method = RequestMethod.GET)
+	public String GetRecipeByID(@PathVariable("searchvalue") String searchvalue) {
+    	System.out.println("test");
+		return rr.GetMatchingrecepies(searchvalue);
 	}
 
 	// deze methode zal worden opgeroepen wanneer er op de website op de knop
