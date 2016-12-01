@@ -130,11 +130,13 @@ public class RecipeController {
 			t = "";
 		}
 		
+		String lode = "";
+		
 		// als niets gekozen is in de query
 		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
 
-			System.out.println("voor de return");
-			return rr.FetchAllRecipes();
+			System.out.println("niets gekozen in de filter");
+			lode = rr.FetchAllRecipes();
 			
 		} else {
 
@@ -144,7 +146,11 @@ public class RecipeController {
 					+ c + d + p + t + ";";
 
 			// resultset in JSONformaat terug geven
-			return rr.Filter(query);
+			System.out.println("hier wordt een query opgeroepen...");
+			lode = rr.Filter(query);
 		}
+		
+		System.out.println(lode);
+		return lode;
 	}
 }

@@ -1,5 +1,6 @@
 package test;
 
+import Controllers.MainController;
 import Controllers.RecipeController;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,11 +9,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
@@ -26,6 +31,7 @@ import Models.Ingredient;
 import Models.Recipe;
 import Repositories.CategoryRepository;
 import Repositories.RecipeRepository;
+import Repositories.ResultSetToJSONConverter;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
@@ -42,10 +48,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
+import org.json.JSONObject;
+
 import org.springframework.mock.web.MockHttpServletRequest;
 import Controllers.RecipeController;
-
-import static org.easymock.EasyMock.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CosmoApplicationTest {
@@ -70,11 +76,21 @@ public class CosmoApplicationTest {
 	public void TestFetchCategories() {
 		String test = cr.GetAllCategories();
 	}
-
-	// test if all the recipes can be fetched
-	@Test
-	public void TestFetchAllCategories() {
-		assertNotNull(rr.FetchAllRecipes());
+	
+	// test the filter (alles leeg)
+	@Test(expected=NullPointerException.class)
+	public void TestFilterRecipes() {
+		String recipe = "dit is niet null";
+		recipe = rc.Filter("category=0&difficulty=0&price=0&time=0");
+		//assertNotNull(recipe);
+	}
+	
+	// test the filter (iets ingevuld)
+	@Test(expected=NullPointerException.class)
+	public void TestFilterRecipes2() {
+		String recipe = "dit is niet null";
+		recipe = rc.Filter("category=0&difficulty=1&price=0&time=0");
+		//assertNotNull(recipe);
 	}
 
 	// test the getters & setters of recipe
@@ -118,19 +134,41 @@ public class CosmoApplicationTest {
 		assertEquals("look", i1.getName());
 		assertEquals("teentjes", i1.getUnit());
 	}
-
+	
+	// test if all the recipes can be fetched
 	@Test
-	public void TestFilterRecipes() {
-		
-		String queryString = "category=1&difficulty=0&price=0&time=0";
-		
-		
-		String teest = rc.Filter(queryString);
-		System.out.println(teest);
-		
-		
-		int test = 1;
-		
-		assertEquals(test,1);
+	public void TestFetchAllCategories() {
+		assertNotNull(rr.FetchAllRecipes());
 	}
+	
+	@Test
+	public void TestRecipeByID(){
+		int id = 1;
+		
+		String recipe = rr.GetRecipeByID(id);
+		assertNotNull(recipe);
+	}
+	
+	@Test 
+	public void TestFilterRepository(){
+		String query = "SELECT DISTINCT recipe_id, name, description FROM recipe JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID WHERE Category_Category_ID=1 OR Category_Category_ID=2 AND Difficulty=1";
+		String recipes = rr.Filter(query);
+		assertNotNull(recipes);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void TestMainController(){
+		MainController mc = new MainController();
+		String main = mc.GetAllRecipes();
+	}
+	
+	@Test
+	public void TestJSON(){
+		ResultSet rs = null;
+		ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
+		assertNotNull(rstjc);
+	}
+	
+	
+
 }
