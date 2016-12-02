@@ -94,7 +94,7 @@ public class RecipeRepository {
 	public String GetMatchingrecepies(String search) {
 
     	// zelfde al anders maar contains op recept (bevat alle ingredienten en veel meer);
-        String query = " SELECT * FROM recipe where recipe like '%"+ search +"%';";
+        String query = " SELECT * FROM recipe where recipe like '%"+ search +"%' OR name like '%"+search+"%';";
 
         List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 

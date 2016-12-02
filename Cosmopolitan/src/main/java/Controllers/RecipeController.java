@@ -34,7 +34,6 @@ public class RecipeController {
 	
     @RequestMapping(value = "/search/{searchvalue}", method = RequestMethod.GET)
 	public String GetRecipeByID(@PathVariable("searchvalue") String searchvalue) {
-    	System.out.println("test");
 		return rr.GetMatchingrecepies(searchvalue);
 	}
 
