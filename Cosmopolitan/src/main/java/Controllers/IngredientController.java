@@ -40,16 +40,6 @@ public class IngredientController {
 		
         System.out.println("test");
 
-        
 		return ir.GetIngredientsByRecipeID(id);
-	}
-
-	
-
-	
-
-    
-    
-    
-    
+	} 
 }

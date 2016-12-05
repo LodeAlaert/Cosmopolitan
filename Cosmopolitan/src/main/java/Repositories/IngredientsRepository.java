@@ -39,7 +39,7 @@ public class IngredientsRepository {
     public String GetIngredientsByRecipeID(int id) {
     	        
     	String query = "SELECT * FROM ingredient "
-    			+ "INNER JOIN recipe_has_ingredient on recipe_has_ingredient.Ingedient_Ingredient_ID = Ingredient_ID "
+    			+ "JOIN recipe_has_ingredient on recipe_has_ingredient.Ingedient_Ingredient_ID = Ingredient_ID "
     			+ "WHERE recipe_has_ingredient.Recipe_Recipe_ID = 1 = " + id;
 		// Connection conn = null;
 
