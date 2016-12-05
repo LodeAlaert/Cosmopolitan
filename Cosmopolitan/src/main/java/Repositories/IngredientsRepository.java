@@ -40,7 +40,7 @@ public class IngredientsRepository {
     	        
     	String query = "SELECT * FROM ingredient "
     			+ "JOIN recipe_has_ingredient on recipe_has_ingredient.Ingedient_Ingredient_ID = Ingredient_ID "
-    			+ "WHERE recipe_has_ingredient.Recipe_Recipe_ID = 1 = " + id;
+    			+ "WHERE recipe_has_ingredient.Recipe_Recipe_ID = " + id;
 		// Connection conn = null;
 
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
