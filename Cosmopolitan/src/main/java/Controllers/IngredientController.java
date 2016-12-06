@@ -37,9 +37,6 @@ public class IngredientController {
     // this catches the /recipe/{id} request
 	@RequestMapping(value = "/ingredients/{id}", method = RequestMethod.GET)
 	public String GetIngredientsByRecipeID(@PathVariable("id") int id) {
-		
-        System.out.println("test");
-
 		return ir.GetIngredientsByRecipeID(id);
 	} 
 }

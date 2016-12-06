@@ -30,6 +30,7 @@ import Models.Category;
 import Models.Ingredient;
 import Models.Recipe;
 import Repositories.CategoryRepository;
+import Repositories.IngredientsRepository;
 import Repositories.RecipeRepository;
 import Repositories.ResultSetToJSONConverter;
 
@@ -51,7 +52,7 @@ import javax.servlet.http.Part;
 import org.json.JSONObject;
 
 import org.springframework.mock.web.MockHttpServletRequest;
-import Controllers.RecipeController;
+import Controllers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CosmoApplicationTest {
@@ -59,10 +60,32 @@ public class CosmoApplicationTest {
 	private final Category c1;
 	private final Recipe r1;
 	private final Ingredient i1;
+	private String main="";
+	private String result="";
+	
+	RecipeRepository rr;
+	CategoryRepository cr;
+	IngredientsRepository ir;
+	RecipeController rc;
+	IngredientController ic;
+	MainController mc;
+	
+	
+	@Before
+	public void SetUp(){
+		main="";
+		result="";
+		
+		rr = new RecipeRepository();
+		cr = new CategoryRepository();
+		rc = new RecipeController();
+		ic = new IngredientController();
+		mc = new MainController();
+		ir = new IngredientsRepository();
+	}
 
-	RecipeRepository rr = new RecipeRepository();
-	CategoryRepository cr = new CategoryRepository();
-	RecipeController rc = new RecipeController();
+
+
 
 	public CosmoApplicationTest() {
 		this.c1 = new Category(1, "Vlees");
@@ -135,10 +158,27 @@ public class CosmoApplicationTest {
 		assertEquals("teentjes", i1.getUnit());
 	}
 	
+	@Test //(expected=NullPointerException.class)
+	public void TestIngredients(){
+		assertNotNull(ir.GetIngredientsByRecipeID(1));
+	}
+	
+	/*
+	@Test //(expected=NullPointerException.class)
+	public void TestMainController(){
+		assertNotNull(mc.GetAllRecipes());
+	}
+	*/
+	
 	// test if all the recipes can be fetched
 	@Test
 	public void TestFetchAllCategories() {
 		assertNotNull(rr.FetchAllRecipes());
+	}
+	
+	@Test
+	public void TestSearchfunction(){
+		assertNotNull(rr.GetMatchingrecepies("pompoen"));
 	}
 	
 	@Test
@@ -156,11 +196,6 @@ public class CosmoApplicationTest {
 		assertNotNull(recipes);
 	}
 	
-	@Test(expected=NullPointerException.class)
-	public void TestMainController(){
-		MainController mc = new MainController();
-		String main = mc.GetAllRecipes();
-	}
 	
 	@Test
 	public void TestJSON(){
@@ -168,6 +203,8 @@ public class CosmoApplicationTest {
 		ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 		assertNotNull(rstjc);
 	}
+	
+
 	
 	
 

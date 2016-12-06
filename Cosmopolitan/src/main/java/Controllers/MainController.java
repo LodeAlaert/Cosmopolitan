@@ -27,4 +27,8 @@ public class MainController {
 	public String GetAllRecipes() {
 		return rr.FetchAllRecipes();
 	}	
+	
+	// cons
+	public MainController(){
+	}
 }

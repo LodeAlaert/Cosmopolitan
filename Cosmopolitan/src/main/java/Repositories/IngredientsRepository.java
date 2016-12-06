@@ -29,6 +29,11 @@ public class IngredientsRepository {
     // variables
     private DataSource dataSource;
     private static java.sql.Connection conn; 
+    
+    // cons
+    public IngredientsRepository(){
+    	
+    }
         
     // datasource for the DB settings
     public void setDataSource(DataSource dataSource) {
