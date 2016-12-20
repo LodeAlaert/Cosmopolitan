@@ -114,7 +114,7 @@ public class RecipeController {
 		if (pri.length >= 2) {
 
 			// checken of de difficulty 0 is in de link (niet gekozen in de filter)
-			if (previousValue==true) {
+			if (previousValue) {
 				p += " AND Price=";
 			} else {
 				p += " Price=";
@@ -136,10 +136,10 @@ public class RecipeController {
 
 			// checken of de prijs 0 is in de link (niet gekozen in de filter)
 			if (previousValue) {
-				t += " Time=";
+				t += " AND Time=";
 			} else {
 				d = "";
-				t += " AND Time=";
+				t += " Time=";
 			}
 			previousValue = true;
 
