@@ -163,7 +163,7 @@ public class RecipeController {
 					+ c + d + p + t + ";";
 
 			// resultset in JSONformaat terug geven
-			return (query);
+			return rr.Filter(query);
 		}
 	}
 }
