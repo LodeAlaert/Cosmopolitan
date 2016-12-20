@@ -110,8 +110,8 @@ public class RecipeRepository {
 				start = false;
 				
 			} else {
-				recipes += " OR '%" + parts[i] + "%'";
-				name += " OR '%" + parts[i] + "%'";
+				recipes += " OR recipe like '%" + parts[i] + "%'";
+				name += " OR name like '%" + parts[i] + "%'";
 			}
 
 		}
