@@ -23,7 +23,7 @@ public class RecipeController {
 
 	@Autowired
 	RecipeRepository rr = new RecipeRepository();
-        
+
 	public String query = "";
 
 	// this catches the /recipe/{id} request
@@ -31,8 +31,8 @@ public class RecipeController {
 	public String GetRecipeByID(@PathVariable("id") int id) {
 		return rr.GetRecipeByID(id);
 	}
-	
-    @RequestMapping(value = "/search/{searchvalue}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/search/{searchvalue}", method = RequestMethod.GET)
 	public String GetRecipeByID(@PathVariable("searchvalue") String searchvalue) {
 		return rr.GetMatchingrecepies(searchvalue);
 	}
@@ -67,12 +67,17 @@ public class RecipeController {
 		// link splitten aan de "&"
 		String[] splittedLink = queryString.split("&");
 
+		// waarde die wordt aangepast als er een voorgaande waarde in de query
+		// bestaat (voor de AND correct te plaatsen)
+		boolean previousValue = false;
+
 		/*
 		 * CATEGORY_ID UIT DE LINK HALEN
 		 */
 		String[] cat = splittedLink[0].split("=");
 		if (cat.length >= 2) {
 			c += cat[1].replaceAll(",", " OR Category_Category_ID=");
+			previousValue = true;
 		}
 
 		/*
@@ -80,18 +85,21 @@ public class RecipeController {
 		 */
 		String[] dif = splittedLink[1].split("=");
 		if (dif.length >= 2) {
+			
+			System.out.println(dif[1]);
 
-			// checken of de category 0 is in de link (niet gekozen in de
-			// filter)
-			if (c.equals("Category_Category_ID=0")) {
-
-				// geen category gekozen
+			// checken of de category 0 is in de link (niet gekozen in de filter)
+			if (previousValue) {
+				d += " AND Difficulty=";
+			} else {
 				c = "";
 				d += " Difficulty=";
-			} else {
-				d += " AND Difficulty=";
 			}
+
 			d += dif[1].replaceAll(",", " OR Difficulty=");
+		} 
+		if(dif[1].equals("0")){
+			previousValue = false;
 		}
 
 		/*
@@ -100,17 +108,18 @@ public class RecipeController {
 		String[] pri = splittedLink[2].split("=");
 		if (pri.length >= 2) {
 
-			// checken of de difficulty 0 is in de link (niet gekozen in de
-			// filter)
-			if (d.equals(" Difficulty=0") || d.equals(" AND Difficulty=0")) {
-
-				// geen difficulty gekozen
+			// checken of de difficulty 0 is in de link (niet gekozen in de filter)
+			if (previousValue) {
+				d += " AND Price=";
+			} else {
 				d = "";
 				p += " Price=";
-			} else {
-				p += " AND Price=";
 			}
+
 			p += pri[1].replaceAll(",", " OR Price=");
+		} 
+		if(pri[1].equals("0")){
+			previousValue = false;
 		}
 
 		/*
@@ -120,28 +129,30 @@ public class RecipeController {
 		if (tim.length >= 2) {
 
 			// checken of de prijs 0 is in de link (niet gekozen in de filter)
-			if (p.equals(" Price=0") || p.equals(" AND Price=0")) {
-
-				// geen prijs gekozen
-				p = "";
-				t += " time=";
+			if (previousValue) {
+				t += " Time=";
 			} else {
-				t += " AND time=";
+				d = "";
+				t += " AND Time=";
 			}
-			t += tim[1].replaceAll(",", " OR Time=");
+
+			t += tim[1].replaceAll(",", " OR Time");
+		} 		
+		if(tim[1].equals("0")){
+			previousValue = false;
 		}
 
 		// geen time gekozen
-		if (t.equals(" time=0") || t.equals(" AND time=0")) {
+		if (t.equals(" Time=0") || t.equals(" AND Time=0")) {
 			t = "";
 		}
-		
+
 		// als niets gekozen is in de query
 		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
 
 			System.out.println("voor de return");
 			return rr.FetchAllRecipes();
-			
+
 		} else {
 
 			// querie maken
