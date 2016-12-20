@@ -97,30 +97,37 @@ public class RecipeRepository {
         String search = "";
 
         for (int i = 0; i < parts.length; i++) {
-            search = parts[i];
-            String query = " SELECT * FROM recipe where recipe like '%" + search + "%' OR name like '%" + search + "%';";
+            search += parts[i];
 
-            List<JSONObject> JSONResult = new ArrayList<JSONObject>();
-
-            try {
-
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
-                        "Cosmo", "Cosmo123");
-
-                PreparedStatement ps = conn.prepareStatement(query);
-                ResultSet rs = ps.executeQuery();
-                // to json
-                ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
-                JSONResult = rstjc.getFormattedResult(rs);
-                System.out.println(JSONResult);
-
-            } catch (Exception e) {
-                System.out.println(e.toString());
+            if (i > 0) {
+                search += parts[i] + "OR";
             }
-            return JSONResult.toString();
-
+            if (i == parts.length) {
+                search += parts[i];
+            }
         }
+
+        System.out.println("DIT     "+ search);
+        String query = " SELECT * FROM recipe where recipe like '%" + search + "%' OR name like '%" + search + "%';";
+        List<JSONObject> JSONResult = new ArrayList<JSONObject>();
+
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
+                    "Cosmo", "Cosmo123");
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            // to json
+            ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
+            JSONResult = rstjc.getFormattedResult(rs);
+            System.out.println(JSONResult);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
         return JSONResult.toString();
         // zelfde al anders maar contains op recept (bevat alle ingredienten en veel meer);
         // SELECT * FROM cosmo.ingredient inner join recipe_has_ingredient on
