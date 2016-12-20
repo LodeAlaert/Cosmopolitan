@@ -79,6 +79,11 @@ public class RecipeController {
 			c += cat[1].replaceAll(",", " OR Category_Category_ID=");
 			previousValue = true;
 		}
+		
+		if(cat[1].equals("0")){
+			c="";
+			previousValue=false;
+		}
 
 		/*
 		 * DIFFICULTY UIT DE LINK HALEN
