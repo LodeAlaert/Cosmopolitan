@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Controllers;
+
 import Repositories.IngredientsRepository;
 import java.awt.PageAttributes.MediaType;
 import java.awt.image.RescaleOp;
@@ -29,14 +30,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 public class IngredientController {
-    
+
     @Autowired
-	IngredientsRepository ir;
-	public String query = "";
-        
+    IngredientsRepository ir;
+    public String query = "";
+
     // this catches the /recipe/{id} request
-	@RequestMapping(value = "/ingredients/{id}", method = RequestMethod.GET)
-	public String GetIngredientsByRecipeID(@PathVariable("id") int id) {
-		return ir.GetIngredientsByRecipeID(id);
-	} 
+    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.GET)
+    public String GetIngredientsByRecipeID(@PathVariable("id") int id) {
+        return ir.GetIngredientsByRecipeID(id);
+    }
 }
