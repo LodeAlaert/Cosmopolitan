@@ -91,8 +91,12 @@ public class RecipeRepository {
         return JSONResult.toString();
     }
 
-    public String GetMatchingrecepies(String search) {
+    public String GetMatchingrecepies(String searchs) {
 
+       // String[] parts = searchs.split("_");
+        String search = "";
+        search = searchs.replace("_"," ");
+        
         // zelfde al anders maar contains op recept (bevat alle ingredienten en veel meer);
         String query = " SELECT * FROM recipe where recipe like '%" + search + "%' OR name like '%" + search + "%';";
 
@@ -111,20 +115,6 @@ public class RecipeRepository {
             JSONResult = rstjc.getFormattedResult(rs);
             System.out.println(JSONResult);
 
-//            for (String serchword : words) {
-//                while (rs.next()) {
-//                    rs.getString(1);
-//
-//                    if (rs.getString(1).contains(serchword)) {
-//                        recipeidlist.add((Integer) Integer.parseInt(rs.getString(0)));
-//                    }
-//                    
-//                }
-//            }s
-//            for (int nr : recipeidlist){
-//                 query = " SELECT * FROM cosmo.ingredient inner join recipe_has_ingredient on Ingredient_ID = recipe_has_ingredient.Ingedient_Ingredient_ID ";
-//                 System.out.println();
-//            }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
