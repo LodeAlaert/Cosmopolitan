@@ -85,21 +85,21 @@ public class RecipeController {
 		 */
 		String[] dif = splittedLink[1].split("=");
 		if (dif.length >= 2) {
-			
-			System.out.println(dif[1]);
 
-			// checken of de category 0 is in de link (niet gekozen in de filter)
+			// checken of de category 0 is in de link (niet gekozen in de
+			// filter)
 			if (previousValue) {
 				d += " AND Difficulty=";
 			} else {
 				c = "";
 				d += " Difficulty=";
 			}
+			previousValue = true;
 
 			d += dif[1].replaceAll(",", " OR Difficulty=");
-		} 
-		if(dif[1].equals("0")){
-			previousValue = false;
+		}
+		if (dif[1].equals("0")) {
+			d = "";
 		}
 
 		/*
@@ -109,17 +109,18 @@ public class RecipeController {
 		if (pri.length >= 2) {
 
 			// checken of de difficulty 0 is in de link (niet gekozen in de filter)
-			if (previousValue) {
-				d += " AND Price=";
+			if (previousValue==true) {
+				p += " AND Price=";
 			} else {
-				d = "";
 				p += " Price=";
 			}
+			previousValue = true;
 
 			p += pri[1].replaceAll(",", " OR Price=");
-		} 
-		if(pri[1].equals("0")){
-			previousValue = false;
+		}
+		
+		if (pri[1].equals("0")) {
+			p = "";
 		}
 
 		/*
@@ -135,11 +136,12 @@ public class RecipeController {
 				d = "";
 				t += " AND Time=";
 			}
+			previousValue = true;
 
 			t += tim[1].replaceAll(",", " OR Time");
-		} 		
-		if(tim[1].equals("0")){
-			previousValue = false;
+		}
+		if (tim[1].equals("0")) {
+			t = "";
 		}
 
 		// geen time gekozen
@@ -161,7 +163,7 @@ public class RecipeController {
 					+ c + d + p + t + ";";
 
 			// resultset in JSONformaat terug geven
-			return rr.Filter(query);
+			return (query);
 		}
 	}
 }
