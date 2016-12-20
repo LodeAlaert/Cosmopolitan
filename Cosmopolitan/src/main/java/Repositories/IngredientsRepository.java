@@ -39,12 +39,12 @@ public class IngredientsRepository {
         this.dataSource = dataSource;
     }
 
+    // method to get all the ingredients from a recipe 
     public String GetIngredientsByRecipeID(int id) {
 
         String query = "SELECT * FROM ingredient "
                 + "JOIN recipe_has_ingredient on recipe_has_ingredient.Ingedient_Ingredient_ID = Ingredient_ID "
                 + "WHERE recipe_has_ingredient.Recipe_Recipe_ID = " + id;
-        // Connection conn = null;
 
         List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 

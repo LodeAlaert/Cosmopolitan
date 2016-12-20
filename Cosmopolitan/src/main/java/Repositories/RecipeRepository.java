@@ -47,8 +47,6 @@ public class RecipeRepository {
 	// fetch a recipe by it's selected ID
 	public String GetRecipeByID(int id) {
 		String query = "SELECT * FROM recipe where Recipe_ID = " + id;
-		// Connection conn = null;
-
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
 		try {
@@ -69,6 +67,7 @@ public class RecipeRepository {
 		return JSONResult.toString();
 	}
 
+	// Filter method, the query is created in the RecipeController
 	public String Filter(String query) {
 
 		System.out.println(query);
@@ -90,7 +89,8 @@ public class RecipeRepository {
 		}
 		return JSONResult.toString();
 	}
-
+	
+	// method for the search bar, multiple words can be searched
 	public String GetMatchingrecepies(String searchs) {
 
 		String[] parts = searchs.split("_");
@@ -116,9 +116,6 @@ public class RecipeRepository {
 
 		}
 		
-		
-
-
 		String query = " SELECT * FROM recipe where recipe like " + recipes + " OR name like " + name +";";
 		System.out.println(query);
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
@@ -141,16 +138,5 @@ public class RecipeRepository {
 		}
 
 		return JSONResult.toString();
-		// zelfde al anders maar contains op recept (bevat alle ingredienten en
-		// veel meer);
-		// SELECT * FROM cosmo.ingredient inner join recipe_has_ingredient on
-		// Ingredient_ID = recipe_has_ingredient.Ingedient_Ingredient_ID inner
-		// join
-		// recipe on recipe_has_ingredient.Recipe_Recipe_ID = recipe.Recipe_ID ;
-		/// SELECT * FROM cosmo.ingredient inner join recipe_has_ingredient on
-		// Ingredient_ID = recipe_has_ingredient.Ingedient_Ingredient_ID inner
-		// join
-		// recipe on recipe_has_ingredient.Recipe_Recipe_ID = 1 group by
-		// Ingredient_ID ;
 	}
 }

@@ -29,8 +29,6 @@ public class CategoryRepository {
     public String GetAllCategories() {
 
         String query = "SELECT * FROM category";
-        // Connection conn = null;
-
         List<JSONObject> JSONResult = new ArrayList<JSONObject>();
 
         try {

@@ -38,42 +38,39 @@ public class RecipeController {
 		return rr.GetMatchingrecepies(searchvalue);
 	}
 
-	// deze methode zal worden opgeroepen wanneer er op de website op de knop
-	// "filter" wordt geklikt het "*" zal dus gelijk welke objecten die worden
-	// meegegeven in de link accepteren.
-
+	// this method gets called when the button "filter" is clicked on the website
+	// "*" wil get the link created in the front-end
 	@RequestMapping("/filter*")
 	public String FilterRecipes(HttpServletRequest request) {
 		String queryString = request.getQueryString();
 		return Filter(queryString);
 	}
 
+	// fuction to spit the requested URL into a MySQL query
 	public String Filter(String queryString) {
 
 		System.out.println("querystring= " + queryString);
 
-		// deze worden delen van de Query
-		// eerste deel
+		// categorory part of the link
 		String c = "Category_Category_ID=";
 
-		// tweede deel
+		// difficulty part of the link
 		String d = "";
 
-		// derde deel
+		// price part of the link
 		String p = "";
 
-		// vierde deel
+		// time part of the link
 		String t = "";
 
-		// link splitten aan de "&"
+		// split at the "&"
 		String[] splittedLink = queryString.split("&");
-
-		// waarde die wordt aangepast als er een voorgaande waarde in de query
-		// bestaat (voor de AND correct te plaatsen)
+		
+		// value for the placement of the AND in de query
 		boolean previousValue = false;
 
 		/*
-		 * CATEGORY_ID UIT DE LINK HALEN
+		 * get the catogory_id's from the request
 		 */
 		String[] cat = splittedLink[0].split("=");
 		if (cat.length >= 2) {
@@ -87,13 +84,12 @@ public class RecipeController {
 		}
 
 		/*
-		 * DIFFICULTY UIT DE LINK HALEN
+		 * get the difficulty_id's from the request
 		 */
 		String[] dif = splittedLink[1].split("=");
 		if (dif.length >= 2) {
 
-			// checken of de category 0 is in de link (niet gekozen in de
-			// filter)
+			// check if the category is 0
 			if (previousValue) {
 				d += " AND Difficulty=";
 			} else {
@@ -109,12 +105,12 @@ public class RecipeController {
 		}
 
 		/*
-		 * PRICE UIT DE LINK HALEN
+		 * get the price_id's from the request
 		 */
 		String[] pri = splittedLink[2].split("=");
 		if (pri.length >= 2) {
 
-			// checken of de difficulty 0 is in de link (niet gekozen in de filter)
+			// check if the difficulty is 0
 			if (previousValue) {
 				p += " AND Price=";
 			} else {
@@ -130,12 +126,12 @@ public class RecipeController {
 		}
 
 		/*
-		 * TIME UIT DE LINK HALEN
+		 * get the time_id's from the request
 		 */
 		String[] tim = splittedLink[3].split("=");
 		if (tim.length >= 2) {
 
-			// checken of de prijs 0 is in de link (niet gekozen in de filter)
+			// check if the price is 0
 			if (previousValue) {
 				t += " AND Time=";
 			} else {
@@ -150,12 +146,12 @@ public class RecipeController {
 			t = "";
 		}
 
-		// geen time gekozen
+		// no time chosen...
 		if (t.equals(" Time=0") || t.equals(" AND Time=0")) {
 			t = "";
 		}
 
-		// als niets gekozen is in de query
+		// nothing chosen in the filter
 		if (c.equals("") && d.equals("") && p.equals("") && t.equals("")) {
 
 			System.out.println("voor de return");
@@ -163,12 +159,12 @@ public class RecipeController {
 
 		} else {
 
-			// querie maken
+			// create query
 			query = "SELECT DISTINCT recipe_id, name, description FROM recipe "
 					+ "JOIN recipe_has_category on recipe_has_category.Recipe_Recipe_ID = recipe.recipe_ID" + " WHERE "
 					+ c + d + p + t + ";";
 
-			// resultset in JSONformaat terug geven
+			// resultset to JSON format
 			return rr.Filter(query);
 		}
 	}
