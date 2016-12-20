@@ -101,19 +101,19 @@ public class CosmoApplicationTest {
 	}
 	
 	// test the filter (alles leeg)
-	@Test(expected=NullPointerException.class)
+	@Test
 	public void TestFilterRecipes() {
 		String recipe = "dit is niet null";
 		recipe = rc.Filter("category=0&difficulty=0&price=0&time=0");
-		//assertNotNull(recipe);
+		assertNotNull(recipe);
 	}
 	
 	// test the filter (iets ingevuld)
-	@Test(expected=NullPointerException.class)
+	@Test
 	public void TestFilterRecipes2() {
 		String recipe = "dit is niet null";
 		recipe = rc.Filter("category=0&difficulty=1&price=0&time=0");
-		//assertNotNull(recipe);
+		assertNotNull(recipe);
 	}
 
 	// test the getters & setters of recipe
@@ -203,9 +203,4 @@ public class CosmoApplicationTest {
 		ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 		assertNotNull(rstjc);
 	}
-	
-
-	
-	
-
 }

@@ -13,13 +13,13 @@ import Repositories.CategoryRepository;
 
 @RestController
 public class CategoryController {
-	
+
 	@Autowired
 	CategoryRepository cr;
-	
+
 	// catches the de /categories request
 	@RequestMapping("/categories")
-	public String GetAllCategories(){
+	public String GetAllCategories() {
 		return cr.GetAllCategories();
 	}
 }

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RecipeController {
 
 	@Autowired
-	RecipeRepository rr;
+	RecipeRepository rr = new RecipeRepository();
         
 	public String query = "";
 
@@ -128,7 +128,7 @@ public class RecipeController {
 			} else {
 				t += " AND time=";
 			}
-			t += tim[1].replaceAll(",", " OR Time");
+			t += tim[1].replaceAll(",", " OR Time=");
 		}
 
 		// geen time gekozen
