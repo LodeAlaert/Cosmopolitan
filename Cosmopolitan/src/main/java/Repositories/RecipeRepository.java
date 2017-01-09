@@ -44,7 +44,7 @@ public class RecipeRepository {
 		return JSONResult.toString();
 	}
 
-	// fetch a recipe by it's selected ID
+	// Get the recipe from the DB by the selected ID
 	public String GetRecipeByID(int id) {
 		String query = "SELECT * FROM recipe where Recipe_ID = " + id;
 		List<JSONObject> JSONResult = new ArrayList<JSONObject>();
@@ -54,9 +54,11 @@ public class RecipeRepository {
 			conn = DriverManager.getConnection("jdbc:mysql://10.129.32.103:3306/cosmo?autoReconnect=true&useSSL=false",
 					"Cosmo", "Cosmo123");
 
+			// execute the query
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 
+			// convert the resultset to JSON format
 			ResultSetToJSONConverter rstjc = new ResultSetToJSONConverter();
 			JSONResult = rstjc.getFormattedResult(rs);
 			System.out.println(JSONResult);

@@ -103,6 +103,7 @@ public class RecipeController {
 		if (dif[1].equals("0")) {
 			d = "";
 			previousValue = false;
+			System.out.println("koekoek");
 		}
 
 		/*

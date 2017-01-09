@@ -31,8 +31,7 @@ public class ResultSetToJSONConverter {
                 columnNames.add(rsMeta.getColumnName(i));
             }
 
-            while (rs.next()) { // convert each object to an human readable JSON
-                // object
+            while (rs.next()) { // convert each object to an human readable JSON object
                 JSONObject obj = new JSONObject();
                 for (int i = 1; i <= columnCnt; i++) {
                     String key = columnNames.get(i - 1);
@@ -52,5 +51,4 @@ public class ResultSetToJSONConverter {
         }
         return resList;
     }
-
 }
