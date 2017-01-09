@@ -102,6 +102,7 @@ public class RecipeController {
 		}
 		if (dif[1].equals("0")) {
 			d = "";
+			previousValue = false;
 		}
 
 		/*
@@ -123,6 +124,7 @@ public class RecipeController {
 		
 		if (pri[1].equals("0")) {
 			p = "";
+			previousValue = false;
 		}
 
 		/*
@@ -140,7 +142,7 @@ public class RecipeController {
 			}
 			previousValue = true;
 
-			t += tim[1].replaceAll(",", " OR Time");
+			t += tim[1].replaceAll(",", " OR Time=");
 		}
 		if (tim[1].equals("0")) {
 			t = "";
